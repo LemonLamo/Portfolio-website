@@ -1,32 +1,21 @@
 'use client';
 
-import { useEffect, useRef, Suspense } from 'react';
+import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
-import dynamic from 'next/dynamic';
-
-// Dynamically import 3D scene; use an inline fallback component to avoid a missing-module error
-const Scene3D = dynamic(
-  () =>
-    Promise.resolve(function InlineScene3D() {
-      return (
-        <div className="w-full h-full bg-linear-to-br from-teal-50/50 via-white to-rose-50/30 dark:from-gray-900 dark:via-black dark:to-gray-900" />
-      );
-    }),
-  { ssr: false }
-);
 
 export default function Hero() {
   const heroRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
-  const statsRef = useRef<HTMLDivElement>(null);
+  const codeWindowRef = useRef<HTMLDivElement>(null);
+  const codeLineRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-      // Staggered text animation with split effect
+      // Text animations
       tl.from(titleRef.current, {
         y: 100,
         opacity: 0,
@@ -50,21 +39,33 @@ export default function Hero() {
             duration: 1,
           },
           '-=0.8'
-        )
-        .from(
-          statsRef.current,
-          {
-            y: 20,
-            opacity: 0,
-            duration: 0.8,
-          },
-          '-=0.6'
         );
 
-      // Floating animation for stats
-      gsap.to(statsRef.current, {
-        y: -10,
-        duration: 2,
+      // Code window animation
+      gsap.from(codeWindowRef.current, {
+        x: 100,
+        opacity: 0,
+        duration: 1.2,
+        ease: 'power3.out',
+        delay: 0.5,
+      });
+
+      // Animate code lines sequentially
+      codeLineRefs.current.forEach((line, index) => {
+        if (!line) return;
+        gsap.from(line, {
+          x: -20,
+          opacity: 0,
+          duration: 0.6,
+          delay: 1.2 + index * 0.15,
+          ease: 'power2.out',
+        });
+      });
+
+      // Floating animation for code window
+      gsap.to(codeWindowRef.current, {
+        y: -15,
+        duration: 3,
         ease: 'sine.inOut',
         repeat: -1,
         yoyo: true,
@@ -79,22 +80,27 @@ export default function Hero() {
     element?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const codeSnippet = [
+    { color: 'text-rose-400', text: 'const' },
+    { color: 'text-cyan-400', text: ' developer = {' },
+    { color: 'text-gray-400', text: '  name:' },
+    { color: 'text-teal-400', text: ' "Lamia Koucem",' },
+    { color: 'text-gray-400', text: '  role:' },
+    { color: 'text-teal-400', text: ' "Software Engineer",' },
+    { color: 'text-gray-400', text: '  skills: [' },
+    { color: 'text-amber-400', text: '    "React", "Node.js", "Docker"' },
+    { color: 'text-gray-400', text: '  ],' },
+    { color: 'text-gray-400', text: '  passion:' },
+    { color: 'text-teal-400', text: ' "Building Amazing Things"' },
+    { color: 'text-cyan-400', text: '};' },
+  ];
+
   return (
     <section
       ref={heroRef}
-      className="relative min-h-screen flex items-center justify-center px-6 py-20 overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center px-6 py-20 overflow-hidden hero-pattern-cubes"
       id="home"
     >
-      {/* 3D Background Scene */}
-      <div className="absolute inset-0 -z-10">
-        <Suspense fallback={<div className="absolute inset-0 bg-linear-to-br from-teal-50/50 via-white to-rose-50/30 dark:from-gray-900 dark:via-black dark:to-gray-900" />}>
-          <Scene3D />
-        </Suspense>
-      </div>
-
-      {/* Overlay gradient for readability */}
-      <div className="absolute inset-0 bg-white/40 dark:bg-black/40 backdrop-blur-[2px] -z-5" />
-
       <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center relative z-10">
         {/* Left: Main Content */}
         <div className="space-y-8">
@@ -121,7 +127,7 @@ export default function Hero() {
             >
               Software Engineering Student crafting{' '}
               <span className="text-teal-600 dark:text-teal-400 font-semibold">innovative</span> and{' '}
-              <span className="text-rose-500 font-semibold">elegant</span> solutions
+              <span className="text-rose-400 font-semibold">elegant</span> solutions
             </p>
           </div>
 
@@ -144,30 +150,43 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Right: Animated Stats/Highlights */}
-        <div ref={statsRef} className="hidden lg:grid grid-cols-2 gap-6">
-          {[
-            { label: 'Projects', value: '10+', color: 'from-teal-500 to-cyan-500' },
-            { label: 'Technologies', value: '20+', color: 'from-rose-500 to-pink-500' },
-            { label: 'Experience', value: '2+ yrs', color: 'from-amber-500 to-orange-500' },
-            { label: 'Code Quality', value: 'A+', color: 'from-emerald-500 to-green-500' },
-          ].map((stat, index) => (
-            <div
-              key={stat.label}
-              className="group relative bg-white/60 dark:bg-gray-900/60 backdrop-blur-md p-6 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 hover:scale-105 transition-all duration-500 hover:shadow-xl cursor-default"
-              style={{ animationDelay: `${index * 100}ms` }}
-            >
-              <div className={`absolute inset-0 bg-linear-to-br ${stat.color} opacity-0 group-hover:opacity-10 rounded-2xl transition-opacity duration-500`} />
-              <div className="relative z-10">
-                <p className={`text-4xl font-bold mb-2 bg-linear-to-r ${stat.color} bg-clip-text text-transparent`}>
-                  {stat.value}
-                </p>
-                <p className="text-gray-600 dark:text-gray-400 font-medium">
-                  {stat.label}
-                </p>
+        {/* Right: Floating Code Window */}
+        <div ref={codeWindowRef} className="hidden lg:block">
+          <div className="bg-gray-900 dark:bg-gray-950 rounded-2xl shadow-2xl overflow-hidden border border-gray-800">
+            {/* Window Header */}
+            <div className="bg-gray-800 dark:bg-gray-900 px-4 py-3 flex items-center gap-2 border-b border-gray-700">
+              <div className="flex gap-2">
+                <div className="w-3 h-3 rounded-full bg-rose-500" />
+                <div className="w-3 h-3 rounded-full bg-amber-500" />
+                <div className="w-3 h-3 rounded-full bg-teal-500" />
               </div>
+              <span className="text-gray-400 text-sm ml-4 font-mono">developer.js</span>
             </div>
-          ))}
+            
+            {/* Code Content */}
+            <div className="p-6 font-mono text-sm space-y-1">
+              {codeSnippet.map((line, index) => (
+                <div
+                  key={index}
+                  ref={(el) => {
+                    codeLineRefs.current[index] = el;
+                  }}
+                  className={`${line.color} leading-relaxed`}
+                >
+                  {line.text}
+                </div>
+              ))}
+            </div>
+
+            {/* Status Bar */}
+            <div className="bg-teal-500/10 border-t border-teal-500/30 px-4 py-2 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 rounded-full bg-teal-500 animate-pulse" />
+                <span className="text-teal-400 text-xs font-semibold">Ready to collaborate</span>
+              </div>
+              <span className="text-gray-500 text-xs">USTHB</span>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -191,3 +210,4 @@ export default function Hero() {
     </section>
   );
 }
+

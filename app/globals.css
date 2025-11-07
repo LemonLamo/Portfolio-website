@@ -100,6 +100,35 @@ html {
   animation: pulse-glow 2s ease-in-out infinite;
 }
 
+/* Hero Patterns - Cube Pattern */
+.hero-pattern-cubes {
+  background-color: #ffffff;
+  background-image: 
+    linear-gradient(30deg, #14b8a610 12%, transparent 12.5%, transparent 87%, #14b8a610 87.5%, #14b8a610),
+    linear-gradient(150deg, #14b8a610 12%, transparent 12.5%, transparent 87%, #14b8a610 87.5%, #14b8a610),
+    linear-gradient(30deg, #14b8a610 12%, transparent 12.5%, transparent 87%, #14b8a610 87.5%, #14b8a610),
+    linear-gradient(150deg, #14b8a610 12%, transparent 12.5%, transparent 87%, #14b8a610 87.5%, #14b8a610),
+    linear-gradient(60deg, #ff9b8a08 25%, transparent 25.5%, transparent 75%, #ff9b8a08 75%, #ff9b8a08),
+    linear-gradient(60deg, #ff9b8a08 25%, transparent 25.5%, transparent 75%, #ff9b8a08 75%, #ff9b8a08);
+  background-size: 80px 140px;
+  background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .hero-pattern-cubes {
+    background-color: #0a0a0a;
+    background-image: 
+      linear-gradient(30deg, #14b8a615 12%, transparent 12.5%, transparent 87%, #14b8a615 87.5%, #14b8a615),
+      linear-gradient(150deg, #14b8a615 12%, transparent 12.5%, transparent 87%, #14b8a615 87.5%, #14b8a615),
+      linear-gradient(30deg, #14b8a615 12%, transparent 12.5%, transparent 87%, #14b8a615 87.5%, #14b8a615),
+      linear-gradient(150deg, #14b8a615 12%, transparent 12.5%, transparent 87%, #14b8a615 87.5%, #14b8a615),
+      linear-gradient(60deg, #ff9b8a10 25%, transparent 25.5%, transparent 75%, #ff9b8a10 75%, #ff9b8a10),
+      linear-gradient(60deg, #ff9b8a10 25%, transparent 25.5%, transparent 75%, #ff9b8a10 75%, #ff9b8a10);
+    background-size: 80px 140px;
+    background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
+  }
+}
+
 /* Gradient animation */
 @keyframes gradient-shift {
   0% {

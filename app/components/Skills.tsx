@@ -39,8 +39,9 @@ gsap.registerPlugin(ScrollTrigger);
 
 const skillCategories = [
   {
-    title: 'Frontend Development',
+    title: 'Frontend',
     color: 'from-teal-400 to-cyan-400',
+    bgColor: 'bg-teal-50 dark:bg-teal-950/30',
     skills: [
       { name: 'React', icon: SiReact, color: '#61DAFB' },
       { name: 'Next.js', icon: SiNextdotjs, color: '#ffffff', darkColor: '#000000' },
@@ -48,13 +49,12 @@ const skillCategories = [
       { name: 'JavaScript', icon: SiJavascript, color: '#F7DF1E' },
       { name: 'Tailwind CSS', icon: SiTailwindcss, color: '#06B6D4' },
       { name: 'HTML5', icon: SiHtml5, color: '#E34F26' },
-      { name: 'CSS3', icon: SiCss3, color: '#1572B6' },
-      { name: 'Bootstrap', icon: SiBootstrap, color: '#7952B3' },
     ],
   },
   {
-    title: 'Backend & APIs',
+    title: 'Backend',
     color: 'from-rose-400 to-pink-400',
+    bgColor: 'bg-rose-50 dark:bg-rose-950/30',
     skills: [
       { name: 'Node.js', icon: SiNodedotjs, color: '#339933' },
       { name: 'Express', icon: SiExpress, color: '#ffffff', darkColor: '#000000' },
@@ -62,24 +62,25 @@ const skillCategories = [
       { name: 'Python', icon: SiPython, color: '#3776AB' },
       { name: 'Java', icon: FaJava, color: '#007396' },
       { name: 'PHP', icon: SiPhp, color: '#777BB4' },
-      { name: 'GraphQL', icon: SiGraphql, color: '#E10098' },
-      { name: 'C', icon: SiC, color: '#A8B9CC' },
     ],
   },
   {
-    title: 'Databases',
+    title: 'Database',
     color: 'from-amber-400 to-orange-400',
+    bgColor: 'bg-amber-50 dark:bg-amber-950/30',
     skills: [
       { name: 'MongoDB', icon: SiMongodb, color: '#47A248' },
       { name: 'PostgreSQL', icon: SiPostgresql, color: '#4169E1' },
       { name: 'MySQL', icon: SiMysql, color: '#4479A1' },
       { name: 'Redis', icon: SiRedis, color: '#DC382D' },
       { name: 'Oracle', icon: SiOracle, color: '#F80000' },
+      { name: 'GraphQL', icon: SiGraphql, color: '#E10098' },
     ],
   },
   {
     title: 'DevOps & Cloud',
     color: 'from-emerald-400 to-green-400',
+    bgColor: 'bg-emerald-50 dark:bg-emerald-950/30',
     skills: [
       { name: 'Docker', icon: SiDocker, color: '#2496ED' },
       { name: 'Kubernetes', icon: SiKubernetes, color: '#326CE5' },
@@ -87,14 +88,6 @@ const skillCategories = [
       { name: 'Git', icon: SiGit, color: '#F05032' },
       { name: 'Linux', icon: SiLinux, color: '#FCC624' },
       { name: 'RabbitMQ', icon: SiRabbitmq, color: '#FF6600' },
-    ],
-  },
-  {
-    title: 'Design & Tools',
-    color: 'from-violet-400 to-purple-400',
-    skills: [
-      { name: 'Figma', icon: SiFigma, color: '#F24E1E' },
-      { name: 'Postman', icon: SiPostman, color: '#FF6C37' },
     ],
   },
 ];
@@ -163,44 +156,34 @@ export default function Skills() {
     <section
       ref={sectionRef}
       id="skills"
-      className="py-24 px-6 bg-gray-50 dark:bg-black relative overflow-hidden"
+      className="py-24 px-6 bg-gray-50 dark:bg-gray-900 relative overflow-hidden"
     >
-      {/* Vibrant animated background */}
-      <div className="absolute inset-0 opacity-40">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-teal-500/20 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-rose-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-cyan-500/15 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
-      </div>
-
-      <div className="max-w-7xl mx-auto relative z-10">
+      <div className="max-w-6xl mx-auto relative z-10">
         <div className="text-center mb-16">
           <h2
             ref={titleRef}
             className="text-4xl md:text-5xl font-bold mb-4"
           >
-            Technical <span className="gradient-text">Expertise</span>
+            Technical <span className="gradient-text">Skills</span>
           </h2>
           <p className="text-gray-600 dark:text-gray-400 text-lg max-w-2xl mx-auto">
-            A versatile tech stack honed through real-world projects and continuous learning
+            Core technologies I work with to build modern applications
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {skillCategories.map((category, index) => (
             <div
               key={category.title}
               ref={(el) => {
                 cardsRef.current[index] = el;
               }}
-              className="group bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm p-6 rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-200 dark:border-gray-800 relative overflow-hidden hover:-translate-y-2"
+              className={`group ${category.bgColor} p-6 rounded-2xl shadow-md hover:shadow-xl transition-all duration-500 border-2 border-gray-200 dark:border-gray-700 hover:border-current hover:-translate-y-1`}
             >
-              {/* Animated gradient border */}
-              <div className={`absolute inset-0 bg-linear-to-br ${category.color} opacity-0 group-hover:opacity-20 transition-opacity duration-500 rounded-3xl`} />
-              
               <div className="relative z-10">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className={`w-2 h-8 rounded-full bg-linear-to-b ${category.color}`} />
-                  <h3 className={`text-xl font-bold bg-linear-to-r ${category.color} bg-clip-text text-transparent`}>
+                  <div className={`w-1 h-10 rounded-full bg-linear-to-b ${category.color}`} />
+                  <h3 className={`text-lg font-bold bg-linear-to-r ${category.color} bg-clip-text text-transparent`}>
                     {category.title}
                   </h3>
                 </div>
@@ -214,17 +197,14 @@ export default function Skills() {
                     return (
                       <li
                         key={skill.name}
-                        className="skill-item flex items-center gap-3 text-gray-700 dark:text-gray-300 cursor-pointer group/item"
+                        className="skill-item flex items-center gap-3 text-gray-800 dark:text-gray-200 cursor-pointer group/item"
                       >
-                        <div className="relative">
+                        <div className="relative flex-shrink-0">
                           <div
-                            className="w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 group-hover/item:scale-110 shadow-sm"
-                            style={{
-                              backgroundColor: `${skill.color}15`,
-                            }}
+                            className="w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-300 group-hover/item:scale-110 bg-white dark:bg-gray-800 shadow-sm"
                           >
                             <Icon
-                              className="w-7 h-7 transition-all duration-300 group-hover/item:rotate-6"
+                              className="w-6 h-6 transition-all duration-300"
                               style={{
                                 color: iconColor,
                                 filter: iconColor === '#ffffff' || iconColor === '#000000' 
@@ -233,15 +213,8 @@ export default function Skills() {
                               }}
                             />
                           </div>
-                          {/* Glow effect on hover */}
-                          <div
-                            className="absolute inset-0 rounded-xl opacity-0 group-hover/item:opacity-100 transition-opacity duration-300"
-                            style={{
-                              boxShadow: `0 0 20px ${skill.color}40`,
-                            }}
-                          />
                         </div>
-                        <span className="font-semibold text-sm group-hover/item:text-gray-900 dark:group-hover/item:text-white transition-colors">
+                        <span className="font-medium text-sm group-hover/item:font-semibold transition-all">
                           {skill.name}
                         </span>
                       </li>
@@ -253,10 +226,10 @@ export default function Skills() {
           ))}
         </div>
 
-        {/* Additional note */}
+        {/* Additional Skills Note */}
         <div className="text-center mt-12">
           <p className="text-gray-500 dark:text-gray-400 italic">
-            ...and continuously exploring emerging technologies 🚀
+            + Many more tools and technologies in my toolkit 🚀
           </p>
         </div>
       </div>
