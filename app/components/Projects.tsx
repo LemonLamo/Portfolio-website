@@ -1,48 +1,62 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useRef, useState } from 'react';
 import Image from 'next/image';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const projects = [
   {
-    title: 'Luna AI - Breast Cancer Support',
-    description: 'AI-powered mobile platform designed to empower and support breast cancer patients throughout their journey from diagnosis to recovery.',
-    technologies: ['JavaScript', 'AI/ML', 'Mobile Development'],
-    gradient: 'from-teal-400/20 to-cyan-400/20',
-    borderColor: 'border-teal-400/30',
+    title: 'Luna AI',
+    description: 'AI-powered mobile platform designed to empower and support breast cancer patients throughout their journey from diagnosis to recovery through intelligent guidance, emotional connection, and real human support.',
+    technologies: ['AI/ML', 'Mobile Development', 'Healthcare'],
+    gradient: 'from-pink-400/20 to-rose-400/20',
+    borderColor: 'border-pink-400/30',
     image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&h=600&fit=crop',
     link: 'https://github.com/LemonLamo/Luna-AI',
   },
   {
-    title: 'Ministry PFE System',
-    description: 'Comprehensive project management system for government institutions with workflow automation and document management.',
-    technologies: ['JavaScript', 'Node.js', 'Full Stack'],
-    gradient: 'from-rose-400/20 to-pink-400/20',
-    borderColor: 'border-rose-400/30',
+    title: 'NutriFind',
+    description: 'Smart nutrition tracking and meal planning application helping users make informed dietary choices and achieve their health goals.',
+    technologies: ['React', 'Node.js', 'MongoDB'],
+    gradient: 'from-green-400/20 to-emerald-400/20',
+    borderColor: 'border-green-400/30',
+    image: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=800&h=600&fit=crop',
+    link: 'https://github.com/LemonLamo/NutriFind',
+  },
+  {
+    title: 'Apex Consulting',
+    description: 'Professional consulting platform connecting businesses with expert advisors for strategic guidance and business development.',
+    technologies: ['Next.js', 'TypeScript', 'Full Stack'],
+    gradient: 'from-blue-400/20 to-cyan-400/20',
+    borderColor: 'border-blue-400/30',
     image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&h=600&fit=crop',
-    link: 'https://github.com/LemonLamo/ministry-PFE',
+    link: 'https://github.com/LemonLamo/apex-consulting',
   },
   {
-    title: 'Hackathon Hollow',
-    description: 'Collaborative hackathon platform built during a competitive coding event, featuring real-time collaboration and project showcasing.',
-    technologies: ['JavaScript', 'React', 'WebSockets'],
-    gradient: 'from-amber-400/20 to-orange-400/20',
-    borderColor: 'border-amber-400/30',
-    image: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800&h=600&fit=crop',
-    link: 'https://github.com/SamiSelx/hackathon_hollow',
+    title: 'TraceIt',
+    description: 'Advanced tracking and logistics management system providing real-time visibility and optimization for supply chain operations.',
+    technologies: ['JavaScript', 'Express', 'PostgreSQL'],
+    gradient: 'from-orange-400/20 to-amber-400/20',
+    borderColor: 'border-orange-400/30',
+    image: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&h=600&fit=crop',
+    link: 'https://github.com/LemonLamo/TraceIt',
   },
   {
-    title: 'Full Stack PFE',
+    title: 'PFE Project',
     description: 'End-of-studies project showcasing modern web development practices with TypeScript and scalable architecture.',
     technologies: ['TypeScript', 'Full Stack', 'Modern Web'],
-    gradient: 'from-emerald-400/20 to-teal-400/20',
-    borderColor: 'border-emerald-400/30',
+    gradient: 'from-purple-400/20 to-violet-400/20',
+    borderColor: 'border-purple-400/30',
     image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop',
     link: 'https://github.com/LemonLamo/PFE',
+  },
+  {
+    title: 'Hollow Dev Challenges',
+    description: 'Collaborative platform for developers to participate in coding challenges, share solutions, and showcase their skills.',
+    technologies: ['React', 'WebSockets', 'Node.js'],
+    gradient: 'from-teal-400/20 to-cyan-400/20',
+    borderColor: 'border-teal-400/30',
+    image: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800&h=600&fit=crop',
+    link: 'https://github.com/LemonLamo/hollow-dev-challenges',
   },
 ];
 
@@ -52,53 +66,17 @@ export default function Projects() {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Animate title
-      gsap.from(titleRef.current, {
-        scrollTrigger: {
-          trigger: titleRef.current,
-          start: 'top 85%',
-          toggleActions: 'play none none reverse',
-        },
-        y: 20,
-        opacity: 0,
-        duration: 1,
-        ease: 'power2.out',
-      });
-
-      // Animate projects with smooth effect
-      projectRefs.current.forEach((project, index) => {
-        if (!project) return;
-
-        gsap.from(project, {
-          scrollTrigger: {
-            trigger: project,
-            start: 'top 80%',
-            toggleActions: 'play none none reverse',
-          },
-          y: 40,
-          opacity: 0,
-          duration: 1.2,
-          delay: (index % 2) * 0.15,
-          ease: 'power2.out',
-        });
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
-
   return (
     <section
       ref={sectionRef}
       id="projects"
-      className="py-24 px-6 bg-white dark:bg-gray-900 relative overflow-hidden"
+      className="py-16 px-6 apple-grid relative overflow-hidden"
     >
+
       <div className="max-w-6xl mx-auto relative z-10">
         <h2
           ref={titleRef}
-          className="text-4xl md:text-5xl font-bold mb-16 text-center"
+          className="text-4xl md:text-5xl font-bold mb-12 text-center"
         >
           Featured <span className="gradient-text">Projects</span>
         </h2>
@@ -111,14 +89,11 @@ export default function Projects() {
               }}
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
-              className={`group relative bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-700 border-2 ${project.borderColor} overflow-hidden`}
+              className={`group relative glass-effect rounded-3xl hover:shadow-2xl hover:shadow-[#ff7b6c]/20 transition-all duration-700 overflow-hidden ${hoveredIndex === index ? 'scale-105' : 'scale-100'}`}
             >
-              {/* Soft gradient overlay */}
-              <div className={`absolute inset-0 bg-linear-to-br ${project.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-700`} />
-              
               <div className="relative z-10">
                 {/* Project Image */}
-                <div className="relative h-48 overflow-hidden rounded-t-2xl">
+                <div className="relative h-48 overflow-hidden rounded-t-3xl">
                   <Image
                     src={project.image}
                     alt={project.title}
@@ -129,7 +104,7 @@ export default function Projects() {
                 </div>
 
                 <div className="p-6">
-                  <h3 className="text-2xl font-bold mb-3 text-gray-900 dark:text-white transition-all duration-500">
+                  <h3 className="text-2xl font-bold mb-3 text-gray-900 dark:text-white group-hover:text-[#ff7b6c] transition-all duration-500">
                     {project.title}
                   </h3>
                   <p className="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed text-sm">
@@ -139,7 +114,7 @@ export default function Projects() {
                     {project.technologies.map((tech) => (
                       <span
                         key={tech}
-                        className="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs rounded-full font-medium transition-all duration-500 hover:scale-105"
+                        className="px-4 py-1.5 glass-effect border border-[#a78bfa]/20 text-[#a78bfa] text-xs rounded-full font-semibold transition-all duration-500 hover:scale-105"
                       >
                         {tech}
                       </span>
@@ -149,7 +124,7 @@ export default function Projects() {
                     href={project.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-teal-600 dark:text-teal-400 font-semibold hover:gap-3 transition-all duration-500 group/link"
+                    className="inline-flex items-center gap-2 text-[#ff7b6c] font-semibold hover:gap-3 transition-all duration-500 group/link"
                   >
                     View Project
                     <svg

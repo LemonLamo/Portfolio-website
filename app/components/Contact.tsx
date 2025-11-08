@@ -32,7 +32,7 @@ const contactMethods = [
         <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
       </svg>
     ),
-    gradient: 'from-rose-400 to-pink-400',
+    gradient: 'from-cyan-400 to-blue-400',
   },
   {
     type: 'GitHub',
@@ -55,34 +55,13 @@ export default function Contact() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from(contentRef.current, {
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 80%',
-          toggleActions: 'play none none reverse',
-        },
-        y: 50,
+      // Simple fade in on load
+      gsap.from([contentRef.current, ...cardsRef.current], {
         opacity: 0,
-        duration: 1,
-        ease: 'power3.out',
-      });
-
-      // Animate contact cards
-      cardsRef.current.forEach((card, index) => {
-        if (!card) return;
-
-        gsap.from(card, {
-          scrollTrigger: {
-            trigger: card,
-            start: 'top 85%',
-            toggleActions: 'play none none reverse',
-          },
-          y: 30,
-          opacity: 0,
-          duration: 1,
-          delay: index * 0.1,
-          ease: 'power2.out',
-        });
+        y: 20,
+        duration: 0.6,
+        stagger: 0.1,
+        ease: 'power2.out',
       });
     }, sectionRef);
 
@@ -93,20 +72,15 @@ export default function Contact() {
     <section
       ref={sectionRef}
       id="contact"
-      className="py-24 px-6 bg-gray-50 dark:bg-black relative overflow-hidden"
+      className="py-16 px-6 apple-grid relative overflow-hidden"
     >
-      {/* Animated background */}
-      <div className="absolute inset-0 opacity-30">
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
-      </div>
 
       <div className="max-w-4xl mx-auto relative z-10">
         <div ref={contentRef}>
-          <h2 className="text-4xl md:text-5xl font-bold mb-8 text-center">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-center">
             Get In <span className="gradient-text">Touch</span>
           </h2>
-          <p className="text-xl text-gray-700 dark:text-gray-300 text-center mb-12 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-700 dark:text-gray-300 text-center mb-10 max-w-2xl mx-auto">
             I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions.
           </p>
           
@@ -122,19 +96,14 @@ export default function Contact() {
                 rel={method.href.startsWith('http') ? 'noopener noreferrer' : undefined}
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
-                className="group relative flex flex-col items-center p-6 bg-white dark:bg-gray-900 rounded-xl shadow-lg hover:shadow-xl transition-all duration-700 overflow-hidden"
+                className={`group relative flex flex-col items-center p-6 glass-effect rounded-3xl hover:shadow-2xl hover:shadow-[#ff7b6c]/20 transition-all duration-700 overflow-hidden ${hoveredIndex === index ? 'scale-105' : 'scale-100'}`}
               >
-                {/* Soft gradient background on hover */}
-                <div className={`absolute inset-0 bg-linear-to-br ${method.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-700`} />
-                
                 {/* Content */}
                 <div className="relative z-10 flex flex-col items-center">
-                  <div className={`w-16 h-16 bg-linear-to-br ${method.gradient} rounded-full flex items-center justify-center mb-4 transform transition-all duration-700 ${hoveredIndex === index ? 'scale-110' : 'scale-100'}`}>
-                    <div className="text-white">
-                      {method.icon}
-                    </div>
+                  <div className={`w-16 h-16 glass-effect rounded-2xl flex items-center justify-center mb-4 transform transition-all duration-700 ${hoveredIndex === index ? 'scale-110' : 'scale-100'} ${method.type === 'Email' || method.type === 'GitHub' ? 'text-[#ff7b6c]' : 'text-[#a78bfa]'}`}>
+                    {method.icon}
                   </div>
-                  <h3 className="font-semibold text-lg mb-2 text-gray-900 dark:text-white transition-colors duration-500">
+                  <h3 className={`font-semibold text-lg mb-2 transition-colors duration-500 ${method.type === 'Email' || method.type === 'GitHub' ? 'text-[#ff7b6c]' : 'text-[#a78bfa]'}`}>
                     {method.type}
                   </h3>
                   <p className="text-sm text-center text-gray-600 dark:text-gray-400 transition-colors duration-500">
@@ -143,9 +112,9 @@ export default function Contact() {
                 </div>
 
                 {/* Animated arrow */}
-                <div className={`absolute bottom-4 right-4 transform transition-all duration-500 text-teal-600 dark:text-teal-400 ${hoveredIndex === index ? 'translate-x-0 opacity-100' : 'translate-x-2 opacity-0'}`}>
+                <div className={`absolute bottom-4 right-4 transform transition-all duration-500 ${method.type === 'Email' || method.type === 'GitHub' ? 'text-[#ff7b6c]' : 'text-[#a78bfa]'} ${hoveredIndex === index ? 'translate-x-0 opacity-100' : 'translate-x-2 opacity-0'}`}>
                   <svg
-                    className="w-5 h-5 text-white"
+                    className="w-5 h-5"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -167,11 +136,10 @@ export default function Contact() {
             <p className="text-gray-600 dark:text-gray-400 mb-6">
               Let's collaborate and create something amazing together!
             </p>
-            <div className="inline-flex items-center gap-3 px-6 py-3 border-2 border-linear-to-r from-teal-500 to-rose-500 rounded-full relative overflow-hidden group">
-              <div className="absolute inset-0 bg-linear-to-r from-teal-500/10 to-rose-500/10" />
+            <div className="inline-flex items-center gap-3 px-6 py-3 glass-effect rounded-full relative overflow-hidden group border border-[#ff7b6c]/30">
               <span className="relative flex h-3 w-3">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#ff7b6c] opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-3 w-3 bg-[#ff7b6c]"></span>
               </span>
               <span className="relative font-semibold gradient-text">Available for opportunities</span>
             </div>

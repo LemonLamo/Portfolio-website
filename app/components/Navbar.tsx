@@ -41,9 +41,10 @@ export default function Navbar() {
         <div className="flex items-center justify-between">
           <button
             onClick={() => scrollToSection('home')}
-            className="text-2xl font-bold gradient-text hover:scale-105 transition-transform"
+            className="flex items-center gap-2 text-2xl font-bold gradient-text hover:scale-105 transition-transform group"
           >
-            LK
+            <span className="text-3xl group-hover:rotate-12 transition-transform">🍋</span>
+            <span>LK</span>
           </button>
 
           {/* Desktop Menu */}
