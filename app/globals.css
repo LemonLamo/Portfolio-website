@@ -1,12 +1,25 @@
 @import "tailwindcss";
 
 :root {
-  --background: #fafafa;
+  --background: #f8f9fa;
   --foreground: #1d1d1f;
-  --salmon: #ff7b6c;
-  --purple: #a78bfa;
-  --accent: #ff7b6c;
-  --accent-dark: #ff6b5a;
+  --salmon: #ff6b5a;
+  --purple: #9c7fe6;
+  --accent: #ff6b5a;
+  --accent-dark: #ff5a48;
+  --card-bg: #ffffff;
+  --card-border: rgba(255, 107, 90, 0.2);
+}
+
+.dark {
+  --background: #1a1a1a;
+  --foreground: #f5f5f7;
+  --salmon: #ff8a78;
+  --purple: #b694ff;
+  --accent: #ff8a78;
+  --accent-dark: #ff7b6c;
+  --card-bg: rgba(30, 30, 30, 0.8);
+  --card-border: rgba(255, 123, 108, 0.15);
 }
 
 @theme inline {
@@ -18,21 +31,11 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0d0d0d;
-    --foreground: #f5f5f7;
-    --salmon: #ff8a78;
-    --purple: #b694ff;
-    --accent: #ff8a78;
-    --accent-dark: #ff7b6c;
-  }
-}
-
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 html {
@@ -40,19 +43,17 @@ html {
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, #ff7b6c 0%, #a78bfa 100%);
+  background: linear-gradient(135deg, #ff6b5a 0%, #9c7fe6 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-@media (prefers-color-scheme: dark) {
-  .gradient-text {
-    background: linear-gradient(135deg, #ff8a78 0%, #b694ff 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
+.dark .gradient-text {
+  background: linear-gradient(135deg, #ff8a78 0%, #b694ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 /* Add 3D perspective */
@@ -88,6 +89,22 @@ html {
   animation: float 3s ease-in-out infinite;
 }
 
+/* Slide down animation for mobile menu */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slideDown {
+  animation: slideDown 0.3s ease-out;
+}
+
 /* Pulse glow animation */
 @keyframes pulse-glow {
   0%, 100% {
@@ -104,20 +121,20 @@ html {
 
 /* Apple-inspired grid pattern */
 .apple-grid {
-  background-color: #fafafa;
+  background-color: #f8f9fa;
   background-image: 
-    linear-gradient(rgba(255, 123, 108, 0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 123, 108, 0.08) 1px, transparent 1px);
+    linear-gradient(rgba(255, 107, 90, 0.15) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(156, 127, 230, 0.15) 1px, transparent 1px);
   background-size: 40px 40px;
+  transition: background-color 0.3s ease;
 }
 
-@media (prefers-color-scheme: dark) {
-  .apple-grid {
-    background-color: #0d0d0d;
-    background-image: 
-      linear-gradient(rgba(255, 123, 108, 0.12) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 123, 108, 0.12) 1px, transparent 1px);
-  }
+.dark .apple-grid {
+  background-color: #1a1a1a;
+  background-image: 
+    linear-gradient(rgba(255, 138, 120, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(182, 148, 255, 0.1) 1px, transparent 1px);
+  background-size: 40px 40px;
 }
 
 
@@ -166,47 +183,43 @@ html {
 
 /* Glassmorphism effect */
 .glass-effect {
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.70);
   backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(255, 123, 108, 0.1);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
 }
 
-@media (prefers-color-scheme: dark) {
-  .glass-effect {
-    background: rgba(18, 18, 18, 0.7);
-    border: 1px solid rgba(255, 123, 108, 0.15);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  }
+.dark .glass-effect {
+  background: rgba(30, 30, 30, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
 }
 
 /* Hero Patterns - Cube Pattern */
 .hero-pattern-cubes {
-  background-color: #ffffff;
+  background-color: #fafafa;
   background-image: 
-    linear-gradient(30deg, #14b8a610 12%, transparent 12.5%, transparent 87%, #14b8a610 87.5%, #14b8a610),
-    linear-gradient(150deg, #14b8a610 12%, transparent 12.5%, transparent 87%, #14b8a610 87.5%, #14b8a610),
-    linear-gradient(30deg, #14b8a610 12%, transparent 12.5%, transparent 87%, #14b8a610 87.5%, #14b8a610),
-    linear-gradient(150deg, #14b8a610 12%, transparent 12.5%, transparent 87%, #14b8a610 87.5%, #14b8a610),
-    linear-gradient(60deg, #ff9b8a08 25%, transparent 25.5%, transparent 75%, #ff9b8a08 75%, #ff9b8a08),
-    linear-gradient(60deg, #ff9b8a08 25%, transparent 25.5%, transparent 75%, #ff9b8a08 75%, #ff9b8a08);
+    linear-gradient(30deg, #e0e0e0 12%, transparent 12.5%, transparent 87%, #e0e0e0 87.5%, #e0e0e0),
+    linear-gradient(150deg, #e0e0e0 12%, transparent 12.5%, transparent 87%, #e0e0e0 87.5%, #e0e0e0),
+    linear-gradient(30deg, #d4d4d4 12%, transparent 12.5%, transparent 87%, #d4d4d4 87.5%, #d4d4d4),
+    linear-gradient(150deg, #d4d4d4 12%, transparent 12.5%, transparent 87%, #d4d4d4 87.5%, #d4d4d4),
+    linear-gradient(60deg, #ffc4b420 25%, transparent 25.5%, transparent 75%, #ffc4b420 75%, #ffc4b420),
+    linear-gradient(60deg, #e9d5ff15 25%, transparent 25.5%, transparent 75%, #e9d5ff15 75%, #e9d5ff15);
   background-size: 80px 140px;
   background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
 }
 
-@media (prefers-color-scheme: dark) {
-  .hero-pattern-cubes {
-    background-color: #0a0a0a;
-    background-image: 
-      linear-gradient(30deg, #14b8a615 12%, transparent 12.5%, transparent 87%, #14b8a615 87.5%, #14b8a615),
-      linear-gradient(150deg, #14b8a615 12%, transparent 12.5%, transparent 87%, #14b8a615 87.5%, #14b8a615),
-      linear-gradient(30deg, #14b8a615 12%, transparent 12.5%, transparent 87%, #14b8a615 87.5%, #14b8a615),
-      linear-gradient(150deg, #14b8a615 12%, transparent 12.5%, transparent 87%, #14b8a615 87.5%, #14b8a615),
-      linear-gradient(60deg, #ff9b8a10 25%, transparent 25.5%, transparent 75%, #ff9b8a10 75%, #ff9b8a10),
-      linear-gradient(60deg, #ff9b8a10 25%, transparent 25.5%, transparent 75%, #ff9b8a10 75%, #ff9b8a10);
-    background-size: 80px 140px;
-    background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
-  }
+.dark .hero-pattern-cubes {
+  background-color: #0a0a0a;
+  background-image: 
+    linear-gradient(30deg, #14b8a615 12%, transparent 12.5%, transparent 87%, #14b8a615 87.5%, #14b8a615),
+    linear-gradient(150deg, #14b8a615 12%, transparent 12.5%, transparent 87%, #14b8a615 87.5%, #14b8a615),
+    linear-gradient(30deg, #14b8a615 12%, transparent 12.5%, transparent 87%, #14b8a615 87.5%, #14b8a615),
+    linear-gradient(150deg, #14b8a615 12%, transparent 12.5%, transparent 87%, #14b8a615 87.5%, #14b8a615),
+    linear-gradient(60deg, #ff9b8a10 25%, transparent 25.5%, transparent 75%, #ff9b8a10 75%, #ff9b8a10),
+    linear-gradient(60deg, #ff9b8a10 25%, transparent 25.5%, transparent 75%, #ff9b8a10 75%, #ff9b8a10);
+  background-size: 80px 140px;
+  background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
 }
 
 /* Gradient animation */

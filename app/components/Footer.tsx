@@ -13,7 +13,7 @@ export default function Footer() {
             <h3 className="text-2xl font-bold gradient-text">
               Lamia Koucem
             </h3>
-            <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+            <p className="text-gray-900 dark:text-gray-400 text-sm leading-relaxed">
               Software Engineering Student
               <br />
               @ USTHB
@@ -30,7 +30,7 @@ export default function Footer() {
 
           {/* Middle: Quick Links */}
           <div className="space-y-4">
-            <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+            <h4 className="text-lg font-semibold text-gray-900 dark:text-gray-200">
               Navigation
             </h4>
             <ul className="space-y-2">
@@ -38,7 +38,7 @@ export default function Footer() {
                 <li key={item}>
                   <a
                     href={`#${item.toLowerCase()}`}
-                    className="text-gray-600 dark:text-gray-400 hover:text-[#ff7b6c] transition-colors duration-300 text-sm flex items-center gap-2 group"
+                    className="text-gray-900 dark:text-gray-400 hover:text-[#ff7b6c] transition-colors duration-300 text-sm flex items-center gap-2 group"
                   >
                     <span className="w-1.5 h-1.5 rounded-full bg-[#ff7b6c] opacity-0 group-hover:opacity-100 transition-opacity" />
                     <span>{item}</span>
@@ -50,7 +50,7 @@ export default function Footer() {
 
           {/* Right: Social Links */}
           <div className="space-y-4">
-            <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+            <h4 className="text-lg font-semibold text-gray-900 dark:text-gray-200">
               Connect
             </h4>
             <div className="space-y-3">
@@ -58,7 +58,7 @@ export default function Footer() {
                 href="https://github.com/LemonLamo"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 text-gray-600 dark:text-gray-400 hover:text-[#ff7b6c] transition-colors duration-300 group"
+                className="flex items-center gap-3 text-gray-900 dark:text-gray-400 hover:text-[#ff7b6c] transition-colors duration-300 group"
               >
                 <div className="w-10 h-10 glass-effect rounded-xl flex items-center justify-center group-hover:scale-110 transition-all duration-300">
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -71,7 +71,7 @@ export default function Footer() {
                 href="https://linkedin.com/in/lamia-koucem-1a4447260"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 text-gray-600 dark:text-gray-400 hover:text-[#a78bfa] transition-colors duration-300 group"
+                className="flex items-center gap-3 text-gray-900 dark:text-gray-400 hover:text-[#a78bfa] transition-colors duration-300 group"
               >
                 <div className="w-10 h-10 glass-effect rounded-xl flex items-center justify-center group-hover:scale-110 transition-all duration-300">
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -82,7 +82,7 @@ export default function Footer() {
               </a>
               <a
                 href="mailto:lamia.koucem@gmail.com"
-                className="flex items-center gap-3 text-gray-600 dark:text-gray-400 hover:text-[#ff7b6c] transition-colors duration-300 group"
+                className="flex items-center gap-3 text-gray-900 dark:text-gray-400 hover:text-[#ff7b6c] transition-colors duration-300 group"
               >
                 <div className="w-10 h-10 glass-effect rounded-xl flex items-center justify-center group-hover:scale-110 transition-all duration-300">
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -100,10 +100,10 @@ export default function Footer() {
 
         {/* Bottom */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
-          <p className="text-gray-600 dark:text-gray-400">
+          <p className="text-gray-900 dark:text-gray-400">
             © {currentYear} Lamia Koucem. All rights reserved.
           </p>
-          <div className="flex items-center gap-3 text-gray-500 dark:text-gray-400">
+          <div className="flex items-center gap-3 text-gray-900 dark:text-gray-400">
             <span>Built with</span>
             <div className="flex items-center gap-2">
               <span className="text-[#ff7b6c] font-semibold">Next.js</span>

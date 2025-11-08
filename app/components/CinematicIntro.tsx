@@ -10,10 +10,36 @@ interface CinematicIntroProps {
 export default function CinematicIntro({ onComplete }: CinematicIntroProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const terminalRef = useRef<HTMLDivElement>(null);
+  const loadingRef = useRef<HTMLDivElement>(null);
   const [lines, setLines] = useState<string[]>([]);
   const [currentLine, setCurrentLine] = useState(0);
+  const [showLoading, setShowLoading] = useState(true);
+  const [loadingProgress, setLoadingProgress] = useState(0);
 
   useEffect(() => {
+    // Phase 1: Loading animation
+    const progressInterval = setInterval(() => {
+      setLoadingProgress(prev => {
+        if (prev >= 100) {
+          clearInterval(progressInterval);
+          return 100;
+        }
+        return prev + Math.random() * 10 + 5;
+      });
+    }, 150);
+
+    // Transition to terminal after loading completes
+    setTimeout(() => {
+      if (loadingRef.current) {
+        gsap.to(loadingRef.current, {
+          opacity: 0,
+          scale: 0.8,
+          duration: 0.5,
+          onComplete: () => setShowLoading(false)
+        });
+      }
+    }, 2500);
+
     const terminalLines = [
       '$ npm run dev',
       '',
@@ -29,18 +55,22 @@ export default function CinematicIntro({ onComplete }: CinematicIntroProps) {
       '',
     ];
 
-    let lineIndex = 0;
-    const typeLines = () => {
-      if (lineIndex < terminalLines.length) {
-        setLines(prev => [...prev, terminalLines[lineIndex]]);
-        setCurrentLine(lineIndex);
-        lineIndex++;
-        setTimeout(typeLines, lineIndex === 1 || lineIndex === 5 || lineIndex === 8 ? 100 : 300);
-      } else {
-        // Wait a moment then start zoom out transition
-        setTimeout(startZoomOut, 800);
-      }
-    };
+    // Phase 2: Terminal typing (starts after loading)
+    setTimeout(() => {
+      let lineIndex = 0;
+      const typeLines = () => {
+        if (lineIndex < terminalLines.length) {
+          setLines(prev => [...prev, terminalLines[lineIndex]]);
+          setCurrentLine(lineIndex);
+          lineIndex++;
+          setTimeout(typeLines, lineIndex === 1 || lineIndex === 5 || lineIndex === 8 ? 100 : 300);
+        } else {
+          // Wait a moment then start zoom out transition
+          setTimeout(startZoomOut, 800);
+        }
+      };
+      typeLines();
+    }, 3000);
 
     const startZoomOut = () => {
       if (!terminalRef.current || !containerRef.current) return;
@@ -73,8 +103,6 @@ export default function CinematicIntro({ onComplete }: CinematicIntroProps) {
         ease: 'power2.in',
       });
     };
-
-    setTimeout(typeLines, 500);
   }, [onComplete]);
 
 
@@ -82,14 +110,51 @@ export default function CinematicIntro({ onComplete }: CinematicIntroProps) {
   return (
     <div 
       ref={containerRef}
-      className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#1e1e1e] overflow-hidden"
+      className="fixed inset-0 z-9999 flex items-center justify-center bg-[#1e1e1e] overflow-hidden"
     >
+      {/* Loading Screen */}
+      {showLoading && (
+        <div 
+          ref={loadingRef}
+          className="absolute inset-0 flex flex-col items-center justify-center z-50"
+        >
+          <div className="text-center space-y-8">
+            {/* Lemon Logo with bounce animation */}
+            <div className="text-8xl animate-bounce">🍋</div>
+            
+            {/* Loading text */}
+            <div className="space-y-3">
+              <h2 className="text-3xl font-bold bg-linear-to-r from-[#ff7b6c] to-[#a78bfa] bg-clip-text text-transparent">
+                Loading Portfolio
+              </h2>
+              <p className="text-gray-400 font-mono text-sm">
+                Initializing workspace...
+              </p>
+            </div>
+
+            {/* Progress bar */}
+            <div className="w-80 h-3 bg-white/10 rounded-full overflow-hidden backdrop-blur-sm">
+              <div 
+                className="h-full bg-linear-to-r from-[#ff7b6c] to-[#a78bfa] transition-all duration-300 rounded-full"
+                style={{ width: `${Math.min(loadingProgress, 100)}%` }}
+              />
+            </div>
+
+            {/* Percentage */}
+            <p className="text-[#ff7b6c] font-mono text-xl font-bold">
+              {Math.floor(Math.min(loadingProgress, 100))}%
+            </p>
+          </div>
+        </div>
+      )}
+
       {/* Terminal Window */}
-      <div 
-        ref={terminalRef}
-        className="w-full max-w-4xl mx-auto glass-effect rounded-3xl shadow-2xl border border-white/10"
-        style={{ transformOrigin: 'center center' }}
-      >
+      {!showLoading && (
+        <div 
+          ref={terminalRef}
+          className="w-full max-w-4xl mx-auto glass-effect rounded-3xl shadow-2xl border border-white/10"
+          style={{ transformOrigin: 'center center' }}
+        >
         {/* Terminal Header */}
         <div className="flex items-center justify-between px-4 py-3 bg-white/5 rounded-t-3xl border-b border-white/10">
           <div className="flex gap-2">
@@ -129,6 +194,7 @@ export default function CinematicIntro({ onComplete }: CinematicIntroProps) {
           )}
         </div>
       </div>
+      )}
     </div>
   );
 }

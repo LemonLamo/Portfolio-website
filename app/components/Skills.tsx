@@ -30,6 +30,8 @@ import {
   SiGraphql,
   SiAmazon,
   SiSpringboot,
+  SiFirebase,
+  SiVuedotjs,
 } from 'react-icons/si';
 import { FaJava } from 'react-icons/fa';
 
@@ -41,10 +43,10 @@ const skillCategories = [
     skills: [
       { name: 'React', icon: SiReact, color: '#61DAFB' },
       { name: 'Next.js', icon: SiNextdotjs, color: '#ffffff' },
-      { name: 'TypeScript', icon: SiTypescript, color: '#3178C6' },
-      { name: 'JavaScript', icon: SiJavascript, color: '#F7DF1E' },
-      { name: 'Tailwind CSS', icon: SiTailwindcss, color: '#06B6D4' },
+      { name: 'Vue.js', icon: SiVuedotjs, color: '#4FC08D' },
       { name: 'HTML5', icon: SiHtml5, color: '#E34F26' },
+      { name: 'Tailwind CSS', icon: SiTailwindcss, color: '#06B6D4' },
+      { name: 'Bootstrap', icon: SiBootstrap, color: '#7952B3' },
     ],
   },
   {
@@ -61,8 +63,21 @@ const skillCategories = [
     ],
   },
   {
-    title: 'Database',
+    title: 'Mobile',
     color: 'from-[#ff7b6c] to-[#a78bfa]',
+    bgColor: 'glass-effect',
+    skills: [
+      { name: 'React Native', icon: SiReact, color: '#61DAFB' },
+      { name: 'JavaScript', icon: SiJavascript, color: '#F7DF1E' },
+      { name: 'TypeScript', icon: SiTypescript, color: '#3178C6' },
+      { name: 'Flutter', icon: SiReact, color: '#02569B' },
+      { name: 'Android', icon: SiReact, color: '#3DDC84' },
+      { name: 'iOS', icon: SiFigma, color: '#147EFB' },
+    ],
+  },
+  {
+    title: 'Database',
+    color: 'from-[#a78bfa] to-[#ff7b6c]',
     bgColor: 'glass-effect',
     skills: [
       { name: 'MongoDB', icon: SiMongodb, color: '#47A248' },
@@ -70,12 +85,12 @@ const skillCategories = [
       { name: 'MySQL', icon: SiMysql, color: '#4479A1' },
       { name: 'Redis', icon: SiRedis, color: '#DC382D' },
       { name: 'Oracle', icon: SiOracle, color: '#F80000' },
-      { name: 'GraphQL', icon: SiGraphql, color: '#E10098' },
+      { name: 'Firebase', icon: SiFirebase, color: '#FFCA28' },
     ],
   },
   {
     title: 'DevOps & Tools',
-    color: 'from-[#a78bfa] to-[#ff7b6c]',
+    color: 'from-[#ff7b6c] to-[#a78bfa]',
     bgColor: 'glass-effect',
     skills: [
       { name: 'Docker', icon: SiDocker, color: '#2496ED' },
@@ -107,19 +122,19 @@ export default function Skills() {
           >
             Technical <span className="gradient-text">Skills</span>
           </h2>
-          <p className="text-gray-600 dark:text-gray-400 text-lg max-w-2xl mx-auto">
+          <p className="text-gray-900 dark:text-gray-400 text-lg max-w-2xl mx-auto">
             Technologies I use to build exceptional digital experiences
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
           {skillCategories.map((category, index) => (
             <div
               key={category.title}
               ref={(el) => {
                 cardsRef.current[index] = el;
               }}
-              className={`group ${category.bgColor} p-6 rounded-3xl hover:scale-105 transition-all duration-300 border-2 border-white/5 hover:border-[#ff7b6c]/30 shadow-lg hover:shadow-2xl hover:shadow-[#ff7b6c]/10`}
+              className={`group bg-white/60 dark:bg-[#1e1e1e] backdrop-blur-sm p-6 rounded-[28px] hover:scale-[1.02] transition-all duration-300 border border-gray-200/60 dark:border-white/10 hover:border-[#ff7b6c]/30 dark:hover:border-[#ff7b6c]/40 shadow-sm hover:shadow-lg hover:shadow-[#ff7b6c]/5`}
             >
               <div className="relative z-10">
                 {/* Category Header with improved styling */}
@@ -133,20 +148,27 @@ export default function Skills() {
                 <ul className="space-y-2.5">
                   {category.skills.map((skill) => {
                     const Icon = skill.icon;
+                    const isNextOrExpress = skill.name === 'Next.js' || skill.name === 'Express';
                     
                     return (
                       <li
                         key={skill.name}
-                        className="skill-item flex items-center gap-3 text-gray-800 dark:text-gray-200 cursor-pointer group/item hover:bg-white/5 p-2.5 rounded-xl transition-all duration-300"
+                        className="skill-item flex items-center gap-3 text-gray-900 dark:text-gray-200 cursor-pointer group/item hover:bg-linear-to-r hover:from-[#ff7b6c]/10 hover:to-[#a78bfa]/10 p-2.5 rounded-xl transition-all duration-300"
                       >
                         <div className="relative shrink-0">
                           <div
-                            className="w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 group-hover/item:scale-110 bg-white/50 dark:bg-gray-800/50 border-2 border-white/10 group-hover/item:border-[#ff7b6c]/50 group-hover/item:shadow-lg group-hover/item:shadow-[#ff7b6c]/20"
+                            className="w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 group-hover/item:scale-110 border-2 group-hover/item:shadow-lg"
+                            style={{
+                              backgroundColor: `${skill.color}15`,
+                              borderColor: `${skill.color}40`,
+                            }}
                           >
                             <Icon
-                              className="w-5 h-5 transition-all duration-300"
+                              className={`w-5 h-5 transition-all duration-300 ${
+                                isNextOrExpress ? 'text-gray-900 dark:text-white' : ''
+                              }`}
                               style={{
-                                color: skill.color,
+                                color: isNextOrExpress ? undefined : skill.color,
                               }}
                             />
                           </div>
@@ -165,7 +187,7 @@ export default function Skills() {
 
         {/* Additional Skills Note */}
         <div className="text-center mt-12">
-          <p className="text-gray-500 dark:text-gray-400 italic">
+          <p className="text-gray-900 dark:text-gray-400 italic">
             + Many more tools and technologies in my toolkit...
           </p>
         </div>

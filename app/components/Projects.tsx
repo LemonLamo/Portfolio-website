@@ -107,7 +107,7 @@ export default function Projects() {
                   <h3 className="text-2xl font-bold mb-3 text-gray-900 dark:text-white group-hover:text-[#ff7b6c] transition-all duration-500">
                     {project.title}
                   </h3>
-                  <p className="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed text-sm">
+                  <p className="text-gray-900 dark:text-gray-300 mb-4 leading-relaxed text-sm">
                     {project.description}
                   </p>
                   <div className="flex flex-wrap gap-2 mb-4">

@@ -183,7 +183,7 @@ export default function Hero() {
 
             <p
               ref={subtitleRef}
-              className="text-xl md:text-2xl text-gray-700 dark:text-gray-300 leading-relaxed"
+              className="text-xl md:text-2xl text-gray-900 dark:text-gray-300 leading-relaxed"
             >
               Software Engineering Student at{' '}
               <span className="font-semibold text-[#ff7b6c]">USTHB</span>, crafting elegant solutions with modern technologies.
@@ -211,16 +211,16 @@ export default function Hero() {
           ref={codeWindowRef} 
           className="w-full lg:w-auto"
         >
-          <div className="glass-effect rounded-2xl overflow-hidden shadow-2xl w-full lg:max-w-xl">
+          <div className="bg-gray-900/95 rounded-2xl overflow-hidden shadow-2xl w-full lg:max-w-xl border border-gray-700/50">
             {/* Window Header */}
-            <div className="px-4 py-3 flex items-center gap-3 border-b border-[#ff7b6c]/10">
+            <div className="px-4 py-3 flex items-center gap-3 border-b border-gray-700/50 bg-gray-800/90">
               <div className="flex gap-2">
                 <div className="w-3 h-3 rounded-full bg-[#ff5f56] hover:brightness-110 transition-all cursor-pointer" />
                 <div className="w-3 h-3 rounded-full bg-[#ffbd2e] hover:brightness-110 transition-all cursor-pointer" />
                 <div className="w-3 h-3 rounded-full bg-[#27c93f] hover:brightness-110 transition-all cursor-pointer" />
               </div>
               <div className="flex gap-1 ml-4">
-                <button className="px-3 py-1 text-xs font-medium rounded-lg bg-[#ff7b6c]/15 text-[#ff7b6c] dark:text-[#ff8a78]">
+                <button className="px-3 py-1 text-xs font-medium rounded-lg bg-[#ff7b6c]/20 text-[#ff8a78]">
                   {activeTab}
                 </button>
               </div>
@@ -239,7 +239,7 @@ export default function Hero() {
                 value={code}
                 onChange={(e) => setCode(e.target.value)}
                 spellCheck={false}
-                className="w-full p-5 pl-12 bg-white/50 dark:bg-gray-900/50 font-mono text-sm text-gray-700 dark:text-gray-300 min-h-[350px] resize-none outline-none border-none focus:ring-0 relative z-20"
+                className="w-full p-5 pl-12 bg-gray-900/95 font-mono text-sm text-gray-300 min-h-[350px] resize-none outline-none border-none focus:ring-0 relative z-20 overflow-hidden"
                 style={{
                   lineHeight: '1.6',
                   tabSize: 2,

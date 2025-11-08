@@ -60,7 +60,7 @@ export default function Contact() {
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-center">
             Get In <span className="gradient-text">Touch</span>
           </h2>
-          <p className="text-xl text-gray-700 dark:text-gray-300 text-center mb-12 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-900 dark:text-gray-300 text-center mb-12 max-w-2xl mx-auto">
             I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions.
           </p>
           
@@ -86,7 +86,7 @@ export default function Contact() {
                   <h3 className={`font-semibold text-lg mb-2 transition-colors duration-500 ${method.type === 'Email' || method.type === 'GitHub' ? 'text-[#ff7b6c]' : 'text-[#a78bfa]'}`}>
                     {method.type}
                   </h3>
-                  <p className="text-sm text-center text-gray-600 dark:text-gray-400 transition-colors duration-500">
+                  <p className="text-sm text-center text-gray-900 dark:text-gray-400 transition-colors duration-500">
                     {method.value}
                   </p>
                 </div>
