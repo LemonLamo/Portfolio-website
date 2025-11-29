@@ -58,15 +58,15 @@ export default function CustomCursor() {
         ref={cursorDotRef}
         className="custom-cursor-dot fixed pointer-events-none"
         style={{
+          zIndex: 9999,
           width: isHovering ? '16px' : '10px',
           height: isHovering ? '16px' : '10px',
           borderRadius: '50%',
           backgroundColor: 'white',
           transform: 'translate(-50%, -50%)',
           mixBlendMode: 'difference',
-          transition: 'width 0.15s ease, height 0.15s ease',
-          left: 0,
-          top: 0,
+          transition: 'width 0.2s ease, height 0.2s ease',
+          willChange: 'transform',
         }}
       />
 

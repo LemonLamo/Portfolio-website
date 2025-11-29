@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import CinematicIntro from './components/CinematicIntro';
-import CursorTrail from './components/CursorTrail';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -28,7 +27,6 @@ export default function Home() {
 
   return (
     <div className={`min-h-screen relative overflow-x-hidden transition-opacity duration-500 ${showContent ? 'opacity-100' : 'opacity-0'}`}>
-      <CursorTrail />
       <div className="relative z-10">
         <Navbar />
         <Hero />

@@ -6,7 +6,7 @@ import Image from 'next/image';
 const projects = [
   {
     title: 'Luna AI',
-    description: 'AI-powered mobile platform designed to empower and support breast cancer patients throughout their journey from diagnosis to recovery through intelligent guidance, emotional connection, and real human support.',
+    description: 'AI-powered mobile platform designed to support breast cancer patients throughout their journey from diagnosis to recovery through intelligent guidance, community creation, and support through tools like interactive maps and automation.',
     technologies: ['AI/ML', 'Mobile Development', 'Healthcare'],
     gradient: 'from-pink-400/20 to-rose-400/20',
     borderColor: 'border-pink-400/30',
