@@ -113,55 +113,7 @@ export default function Hero() {
     return () => window.removeEventListener('themechange', handleThemeChange);
   }, []);
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-
-      // Cinematic text reveal
-      tl.from(titleRef.current, {
-        scale: 0.5,
-        opacity: 0,
-        rotationY: -30,
-        duration: 1.5,
-        ease: 'back.out(1.7)',
-      })
-        .from(
-          subtitleRef.current,
-          {
-            x: -100,
-            opacity: 0,
-            duration: 1.2,
-            ease: 'power4.out',
-          },
-          '-=1'
-        )
-        .from(
-          ctaRef.current,
-          {
-            scale: 0,
-            opacity: 0,
-            rotation: -10,
-            duration: 1,
-            ease: 'elastic.out(1, 0.5)',
-          },
-          '-=0.6'
-        );
-
-      // Computer desk animation
-      gsap.from(computerRef.current, {
-        scale: 0.8,
-        opacity: 0,
-        y: 50,
-        duration: 1.2,
-        ease: 'back.out(1.4)',
-        delay: 0.3,
-      });
-
-      // Additional subtle animations can go here
-    }, heroRef);
-
-    return () => ctx.revert();
-  }, []);
+  // All loading animations removed
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -196,7 +148,7 @@ export default function Hero() {
   return (
     <section
       ref={heroRef}
-      className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12 sm:py-16 overflow-hidden"
+      className="relative min-h-screen px-4 sm:px-6 lg:px-8 py-12 sm:py-16 overflow-hidden"
       id="home"
       style={{
         background: `linear-gradient(to right, var(--hero-bg-left) 0%, var(--hero-bg-left) 50%, var(--hero-bg-right) 50%, var(--hero-bg-right) 100%)`,
@@ -217,36 +169,38 @@ export default function Hero() {
         <ThemeLamp isDark={isDarkMode} onClick={toggleTheme} />
       </div>
 
-      {/* Text Section */}
-      <div className="max-w-7xl mx-auto relative z-10 w-full px-6 sm:px-8 text-center" style={{ paddingTop: '30px' }}>
-        <h1
-          ref={titleRef}
-          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-4"
-          style={{ color: 'var(--text-primary)' }}
-        >
-          <span className="block text-lg sm:text-xl md:text-2xl font-normal mb-2" style={{ color: 'var(--text-secondary)' }}>
-            Hi, I'm
-          </span>
-          <span className="italic" style={{ color: 'var(--accent-purple)' }}>
-            Lamia{' '}
-          </span>
-          <span style={{ color: 'var(--accent-pink)' }}>
-            Koucem
-          </span>
-        </h1>
-        
-        <p
-          ref={subtitleRef}
-          className="text-sm sm:text-base md:text-lg lg:text-xl font-normal leading-relaxed max-w-md sm:max-w-lg md:max-w-xl mx-auto mt-4"
-          style={{ color: 'var(--text-secondary)' }}
-        >
-          I like <span className="font-bold italic" style={{ color: 'var(--accent-pink)' }}>creating</span> <span className="font-bold" style={{ color: 'var(--accent-purple)' }}>innovative solutions </span> with code.
-        </p>
-      </div>
+      {/* Simple centered layout */}
+      <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8" style={{ paddingTop: '80px' }}>
+        {/* Text Section - Always centered and on top */}
+        <div className="text-center mb-4">
+          <h1
+            ref={titleRef}
+            className="text-4xl sm:text-5xl md:text-6xl font-black mb-4"
+            style={{ color: 'var(--text-primary)' }}
+          >
+            <span className="block text-xl sm:text-2xl font-normal mb-2" style={{ color: 'var(--text-secondary)' }}>
+              Hi, I'm
+            </span>
+            <span className="italic" style={{ color: 'var(--accent-purple)' }}>
+              Lamia{' '}
+            </span>
+            <span style={{ color: 'var(--accent-pink)' }}>
+              Koucem
+            </span>
+          </h1>
+          
+          <p
+            ref={subtitleRef}
+            className="text-base sm:text-lg md:text-xl max-w-2xl mx-auto"
+            style={{ color: 'var(--text-secondary)' }}
+          >
+            I like <span className="font-bold italic" style={{ color: 'var(--accent-pink)' }}>creating</span> <span className="font-bold" style={{ color: 'var(--accent-purple)' }}>innovative solutions</span> with code.
+          </p>
+        </div>
 
-      {/* Computer Section - Separate Container */}
-      <div className="max-w-7xl mx-auto relative z-10 w-full px-4 sm:px-6 flex justify-center" style={{ paddingTop: '20px' }}>
-        <div ref={computerRef} className="w-full max-w-sm md:max-w-md">
+        {/* Computer Section - Always below text, centered */}
+        <div className="flex justify-center">
+          <div ref={computerRef} className="w-full max-w-md lg:max-w-lg" style={{ animation: 'none', transform: 'none', transition: 'none' }}>
           {/* Computer Monitor */}
           <div className="relative">
           {/* Monitor bezel */}
@@ -378,6 +332,7 @@ export default function Hero() {
             {/* Stand base */}
             <div className="w-20 sm:w-28 h-2 sm:h-3 rounded-full" 
               style={{ backgroundColor: 'var(--text-primary)' }} />
+          </div>
           </div>
           </div>
         </div>

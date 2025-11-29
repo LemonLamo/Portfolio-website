@@ -28,81 +28,22 @@ export default function CinematicIntro({ onComplete }: CinematicIntroProps) {
       });
     }, 150);
 
-    // Transition to terminal after loading completes
+    // Transition directly to portfolio after loading completes (skip terminal)
     setTimeout(() => {
-      if (loadingRef.current) {
+      if (loadingRef.current && containerRef.current) {
         gsap.to(loadingRef.current, {
           opacity: 0,
           scale: 0.8,
           duration: 0.5,
-          onComplete: () => setShowLoading(false)
+        });
+        gsap.to(containerRef.current, {
+          opacity: 0,
+          duration: 0.5,
+          delay: 0.3,
+          onComplete: () => onComplete()
         });
       }
     }, 2500);
-
-    const terminalLines = [
-      '$ npm run dev',
-      '',
-      '> portfolio@1.0.0 dev',
-      '> next dev --turbopack',
-      '',
-      '▲ Next.js 16.0.1 (Turbopack)',
-      '  - Local:        http://localhost:3000',
-      '',
-      '✓ Starting...',
-      '✓ Compiled in 1.2s',
-      '✓ Ready on http://localhost:3000',
-      '',
-    ];
-
-    // Phase 2: Terminal typing (starts after loading)
-    setTimeout(() => {
-      let lineIndex = 0;
-      const typeLines = () => {
-        if (lineIndex < terminalLines.length) {
-          setLines(prev => [...prev, terminalLines[lineIndex]]);
-          setCurrentLine(lineIndex);
-          lineIndex++;
-          setTimeout(typeLines, lineIndex === 1 || lineIndex === 5 || lineIndex === 8 ? 100 : 300);
-        } else {
-          // Wait a moment then start zoom out transition
-          setTimeout(startZoomOut, 800);
-        }
-      };
-      typeLines();
-    }, 3000);
-
-    const startZoomOut = () => {
-      if (!terminalRef.current || !containerRef.current) return;
-
-      const tl = gsap.timeline({
-        onComplete: () => {
-          onComplete();
-        }
-      });
-
-      // Calculate position to move terminal to right side (where Hero editor is)
-      const screenWidth = window.innerWidth;
-      const moveX = screenWidth > 1024 ? screenWidth * 0.2 : 0; // Move to right on large screens
-      
-      // Zoom out and shift to editor position
-      tl.to(terminalRef.current, {
-        scale: 0.45,
-        x: moveX,
-        y: 50,
-        duration: 1.8,
-        ease: 'power3.inOut',
-      })
-      .to(containerRef.current, {
-        backgroundColor: 'transparent',
-        duration: 0.6,
-      }, '-=1')
-      .to(containerRef.current, {
-        opacity: 0,
-        duration: 0.5,
-        ease: 'power2.in',
-      });
-    };
   }, [onComplete]);
 
 
